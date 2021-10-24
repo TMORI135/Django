@@ -827,10 +827,11 @@ pre {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0 420px;
-  width: calc(270% / 3);
+  padding: 0 400px;
+  width: calc(265% / 3);
   z-index: 1;
 }
+
 .board-column.muuri-item-releasing {
   z-index: 2;
 }
@@ -876,8 +877,8 @@ pre {
 .board-column-content-wrapper {
   position: relative;
   padding: 8px;
-  background: #f0f0f0;
-  height: calc(100vh - 90px);
+  background: #ddd;/*#f0f0f0;*/
+  height: 200px; /*calc(100vh - 90px);*/
   overflow-y: auto;
   border-radius: 0 0 5px 5px;
 }
@@ -885,11 +886,26 @@ pre {
   position: relative;
   min-height: 100%;
 }
+
 .board-item {
   position: absolute;
   width: calc(100% - 16px);
   margin: 8px;
 }
+
+.board-item2 {
+  position: absolute;
+  width: calc(100% - 16px);
+  margin: 8px;
+  margin-top: 60px;
+  }
+
+.board-item3 {
+  position: absolute;
+  width: calc(100% - 16px);
+  margin: 8px;
+  margin-top: 85px;
+  }
 
 .board-item.muuri-item-releasing {
   z-index: 9998;
@@ -906,7 +922,19 @@ pre {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
-  font-size: 17px;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+}
+
+.board-item-content2 {
+  position: relative;
+  padding: 20px;
+  background: #f00;
+  border-radius: 4px;
+  font-size: 12px;
+  font-color: #fff;
   cursor: pointer;
   -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
   box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
