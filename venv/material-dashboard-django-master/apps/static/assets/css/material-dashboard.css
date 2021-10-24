@@ -45,6 +45,9 @@ body {
 [tabindex="-1"]:focus {
   outline: 0 !important; }
 
+
+
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -772,6 +775,152 @@ pre {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px; }
+
+/* ------------------*/
+* {
+  box-sizing: border-box;
+}
+.drag-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+.board {
+  position: relative;
+}
+/*
+.board-column {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 10px;
+  width: calc(100% / 3);
+  z-index: 1;
+}
+*/
+.board-column {
+  position: absolute;
+  /*left: 0;
+  top: 0;
+  padding: 0 10px;
+  width: calc(100% / 3);
+  z-index: 1;*/
+
+  left: 0;
+  top: 0;
+  padding: 0 200px;
+  width: calc(155% / 3);
+  z-index: 1;
+}
+
+.board-column2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 5px;
+  width: calc(50% / 3);
+  z-index: 1;
+}
+
+.board-column3 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 420px;
+  width: calc(270% / 3);
+  z-index: 1;
+}
+.board-column.muuri-item-releasing {
+  z-index: 2;
+}
+.board-column.muuri-item-dragging {
+  z-index: 3;
+  cursor: move;
+}
+.board-column-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.board-column-header {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  padding: 0 20px;
+  text-align: center;
+  background: #333;
+  color: #fff;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+@media (max-width: 600px) {
+  .board-column-header {
+    text-indent: -1000px;
+  }
+}
+.board-column3.todo .board-column-header {
+  background: #4A9FF9;
+}
+.board-column2.working .board-column-header {
+  /*background: #f9944a;*/
+  background: #4A9FF9;
+}
+.board-column.done .board-column-header {
+  /*background: #2ac06d;*/
+  background: #4A9FF9;
+}
+.board-column-content-wrapper {
+  position: relative;
+  padding: 8px;
+  background: #f0f0f0;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  border-radius: 0 0 5px 5px;
+}
+.board-column-content {
+  position: relative;
+  min-height: 100%;
+}
+.board-item {
+  position: absolute;
+  width: calc(100% - 16px);
+  margin: 8px;
+}
+
+.board-item.muuri-item-releasing {
+  z-index: 9998;
+}
+.board-item.muuri-item-dragging {
+  z-index: 9999;
+  cursor: move;
+}
+.board-item.muuri-item-hidden {
+  z-index: 0;
+}
+.board-item-content {
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 17px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+}
+@media (max-width: 600px) {
+  .board-item-content {
+    text-align: center;
+  }
+  .board-item-content span {
+    display: none;
+  }
+}
+
+/* ------------------*/
 
 .no-gutters {
   margin-right: 0;
@@ -7533,7 +7682,13 @@ a.text-dark:hover, a.text-dark:focus {
         width: 0;
         color: #fff;
         height: 0;
-        box-shadow: 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0 inset;
+        box-shadow: 0 0 0 0,
+ 0 0 0 0,
+ 0 0 0 0,
+ 0 0 0 0,
+ 0 0 0 0,
+ 0 0 0 0,
+ 0 0 0 0 inset;
         animation: checkboxOff 0.3s forwards; }
   .form-check .form-check-input:focus + .form-check-sign .check:after {
     opacity: 0.2; }
@@ -7541,7 +7696,12 @@ a.text-dark:hover, a.text-dark:focus {
     background: #9c27b0; }
   .form-check .form-check-input:checked ~ .form-check-sign .check:before {
     color: #FFFFFF;
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 20px -12px 0 11px;
     animation: checkboxOn 0.3s forwards; }
   .form-check .form-check-input:checked ~ .form-check-sign:before {
     animation: rippleOn 500ms; }
@@ -7569,11 +7729,26 @@ a.text-dark:hover, a.text-dark:focus {
 
 @keyframes checkboxOn {
   0% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 15px 2px 0 11px; }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 15px 2px 0 11px; }
   50% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px 2px 0 11px; }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 20px 2px 0 11px; }
   100% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px; } }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 20px -12px 0 11px; } }
 
 @keyframes rippleOn {
   0% {
@@ -7686,11 +7861,26 @@ a.text-dark:hover, a.text-dark:focus {
 
 @keyframes checkboxOn {
   0% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 15px 2px 0 11px; }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 15px 2px 0 11px; }
   50% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px 2px 0 11px; }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 20px 2px 0 11px; }
   100% {
-    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px; } }
+    box-shadow: 0 0 0 10px,
+ 10px -10px 0 10px,
+ 32px 0 0 20px,
+ 0px 32px 0 20px,
+ -5px 5px 0 10px,
+ 20px -12px 0 11px; } }
 
 @keyframes rippleOn {
   0% {
